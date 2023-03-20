@@ -53,10 +53,11 @@
       #titre {
         position: absolute;
         top: 20px;
-        font-size: 72px;
+        font-size: 48px;
         color: white;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         z-index: 2;
+        text-align: center;
       }
       .paillettes {
         position: absolute;
@@ -87,6 +88,23 @@
           opacity: 0.8;
         }
       }
+      .licorne {
+        position: absolute;
+        top: 75%;
+        left: -100px;
+        width: 200px;
+        height: auto;
+        animation: licorne 5s linear infinite;
+        z-index: 3;
+      }
+      @keyframes licorne {
+        from {
+          left: -100px;
+        }
+        to {
+          left: calc(100% + 100px);
+        }
+      }
     </style>
   </head>
   <body>
@@ -95,10 +113,17 @@
     <div class="paillettes" style="top: 10%; left: 20%"></div>
     <div class="paillettes" style="top: 60%; left: 40%"></div>
     <div class="paillettes" style="top: 40%; left: 70%"></div>
+    <div class="paillettes" style="top: 20%; left: 20%"></div>
+    <div class="paillettes" style="top: 70%; left: 40%"></div>
+    <div class="paillettes" style="top: 80%; left: 90%"></div>
+    <img
+      class="licorne"
+      src="https://source.unsplash.com/random/200x200/?unicorn"
+      alt="Licorne"
+    />
     <script>
       const compteARebours = document.getElementById("compteARebours");
       const dateCible = new Date("2023-04-28T10:15:00");
-
       function miseAJourCompteARebours() {
         const dateActuelle = new Date();
         const intervalle = dateCible - dateActuelle;
@@ -123,7 +148,7 @@
       function ajouterChaton(i) {
         const img = document.createElement("img");
         const randomId = Math.floor(Math.random() * 1000);
-        img.src = `https://source.unsplash.com/random/300x300/?kitten&sig=${randomId}`;
+        img.src = `https://source.unsplash.com/random/150x150/?kitten&sig=${randomId}`;
         img.classList.add("chaton");
         img.style.left = `${Math.random() * 100}vw`;
         img.style.top = `${Math.random() * 100}vh`;
