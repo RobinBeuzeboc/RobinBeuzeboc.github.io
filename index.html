@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CÉBI1TOLÉVAKANSS</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Patrick Hand", sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-image: linear-gradient(
+          to right,
+          violet,
+          indigo,
+          blue,
+          green,
+          yellow,
+          orange,
+          red
+        );
+        background-size: cover;
+        position: relative;
+        overflow: hidden;
+      }
+      #compteARebours {
+        font-size: 48px;
+        color: white;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        z-index: 2;
+      }
+      .chaton {
+        position: absolute;
+        width: 300px;
+        height: auto;
+        animation: rotation 5s infinite linear;
+      }
+      @keyframes rotation {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="compteARebours">Cé bi 1 to lévakanss de JUJU et JUJU</div>
+    <script>
+      const compteARebours = document.getElementById("compteARebours");
+      const dateCible = new Date("2023-04-28T10:15:00");
+
+      function miseAJourCompteARebours() {
+        const dateActuelle = new Date();
+        const intervalle = dateCible - dateActuelle;
+
+        const jours = Math.floor(intervalle / (1000 * 60 * 60 * 24));
+        const heures = Math.floor(
+          (intervalle % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        const minutes = Math.floor(
+          (intervalle % (1000 * 60 * 60)) / (1000 * 60)
+        );
+        const secondes = Math.floor((intervalle % (1000 * 60)) / 1000);
+
+        compteARebours.textContent = `${jours}j ${heures}h ${minutes}m ${secondes}s`;
+
+        if (intervalle < 0) {
+          clearInterval(compteAReboursInterval);
+          compteARebours.textContent = "Terminé";
+        }
+      }
+
+      function ajouterChaton(i) {
+        const img = document.createElement("img");
+        const randomId = Math.floor(Math.random() * 1000);
+        img.src = `https://source.unsplash.com/random/300x300/?kitten&sig=${randomId}`;
+        img.classList.add("chaton");
+        img.style.left = `${Math.random() * 100}vw`;
+        img.style.top = `${Math.random() * 100}vh`;
+        img.key = i;
+        document.body.appendChild(img);
+      }
+      for (let i = 0; i < 10; i++) {
+        ajouterChaton(i);
+      }
+
+      const compteAReboursInterval = setInterval(miseAJourCompteARebours, 1000);
+      miseAJourCompteARebours();
+    </script>
+  </body>
+</html>
