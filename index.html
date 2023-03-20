@@ -10,7 +10,7 @@
     />
     <style>
       body {
-        font-family: "Patrick Hand", sans-serif;
+        font-family: "Comic Neue", sans-serif;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -50,10 +50,51 @@
           transform: rotate(360deg);
         }
       }
+      #titre {
+        position: absolute;
+        top: 20px;
+        font-size: 72px;
+        color: white;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        z-index: 2;
+      }
+      .paillettes {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: linear-gradient(
+          45deg,
+          rgba(255, 255, 255, 0.8),
+          rgba(255, 255, 255, 0)
+        );
+        border-radius: 50%;
+        z-index: 1;
+        pointer-events: none;
+        opacity: 0.8;
+        animation: scintillement 2s ease-in-out infinite;
+      }
+      @keyframes scintillement {
+        0% {
+          transform: scale(1);
+          opacity: 0.8;
+        }
+        50% {
+          transform: scale(2);
+          opacity: 0.5;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 0.8;
+        }
+      }
     </style>
   </head>
   <body>
-    <div id="compteARebours">Cé bi 1 to lévakanss de JUJU et JUJU</div>
+    <div id="titre">CÉ BI 1 TO LÉ VAKANSS DE JUJU ET JUJU</div>
+    <div id="compteARebours"></div>
+    <div class="paillettes" style="top: 10%; left: 20%"></div>
+    <div class="paillettes" style="top: 60%; left: 40%"></div>
+    <div class="paillettes" style="top: 40%; left: 70%"></div>
     <script>
       const compteARebours = document.getElementById("compteARebours");
       const dateCible = new Date("2023-04-28T10:15:00");
@@ -89,6 +130,7 @@
         img.key = i;
         document.body.appendChild(img);
       }
+
       for (let i = 0; i < 10; i++) {
         ajouterChaton(i);
       }
