@@ -58,6 +58,19 @@
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         z-index: 2;
         text-align: center;
+        transform: rotate(0deg);
+        transition: transform 1s ease-in-out;
+      }
+      #nouveauTitre {
+        position: absolute;
+        top: 20px;
+        font-size: 48px;
+        color: white;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        z-index: 2;
+        text-align: center;
+        transform: rotate(360deg);
+        transition: transform 1s ease-in-out;
       }
       .paillettes {
         position: absolute;
@@ -105,6 +118,28 @@
           left: calc(100% + 100px);
         }
       }
+      .rotate-clockwise {
+        animation: rotate-clockwise 2s ease-in-out infinite;
+      }
+      .rotate-anticlockwise {
+        animation: rotate-anticlockwise 2s ease-in-out infinite;
+      }
+      @keyframes rotate-clockwise {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes rotate-anticlockwise {
+        from {
+          transform: rotate(360deg);
+        }
+        to {
+          transform: rotate(0deg);
+        }
+      }
     </style>
   </head>
   <body>
@@ -124,24 +159,50 @@
     <script>
       const compteARebours = document.getElementById("compteARebours");
       const dateCible = new Date("2023-04-28T10:15:00");
+
       function miseAJourCompteARebours() {
         const dateActuelle = new Date();
         const intervalle = dateCible - dateActuelle;
 
-        const jours = Math.floor(intervalle / (1000 * 60 * 60 * 24));
-        const heures = Math.floor(
-          (intervalle % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-        );
-        const minutes = Math.floor(
-          (intervalle % (1000 * 60 * 60)) / (1000 * 60)
-        );
-        const secondes = Math.floor((intervalle % (1000 * 60)) / 1000);
-
-        compteARebours.textContent = `${jours}j ${heures}h ${minutes}m ${secondes}s`;
-
         if (intervalle < 0) {
           clearInterval(compteAReboursInterval);
-          compteARebours.textContent = "Terminé";
+          compteARebours.style.display = "none";
+          const titre = document.getElementById("titre");
+          titre.classList.remove("rotate-anticlockwise");
+          titre.classList.add("rotate-clockwise");
+          titre.textContent = "CÉ LÉ VAKANSS DE JUJU ET JUJU";
+          setTimeout(() => {
+            const nouveauTitre = document.createElement("div");
+            nouveauTitre.id = "nouveauTitre";
+            nouveauTitre.textContent = "OUÉÉÉ LÉ VOKONSS";
+            document.body.appendChild(nouveauTitre);
+            nouveauTitre.classList.add("rotate-anticlockwise");
+            titre.classList.add("rotate-anticlockwise");
+            const chatons = document.querySelectorAll(".chaton");
+            chatons.forEach((chaton) => chaton.remove());
+            const background = document.querySelector("body");
+            background.classList.add("rotate-clockwise");
+            setInterval(() => {
+              background.classList.toggle("rotate-clockwise");
+              background.classList.toggle("rotate-anticlockwise");
+            }, 2000);
+            const images = document.querySelectorAll("img");
+            images.forEach((img) => (img.style.display = "none"));
+            titre.style.left = "50%";
+            titre.style.top = "50%";
+            titre.style.transform = "translate(-50%, -50%)";
+          }, 1000);
+        } else {
+          const jours = Math.floor(intervalle / (1000 * 60 * 60 * 24));
+          const heures = Math.floor(
+            (intervalle % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+          );
+          const minutes = Math.floor(
+            (intervalle % (1000 * 60 * 60)) / (1000 * 60)
+          );
+          const secondes = Math.floor((intervalle % (1000 * 60)) / 1000);
+
+          compteARebours.textContent = `${jours}j ${heures}h ${minutes}m ${secondes}s`;
         }
       }
 
